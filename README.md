@@ -1,10 +1,10 @@
 # Cairo Coder MCP Server
 
-Un serveur MCP (Model Context Protocol) pour l'assistance au développement Cairo et Starknet via l'API Cairo Coder.
+A Model Context Protocol (MCP) server for Cairo and Starknet development assistance via the Cairo Coder API.
 
-## Installation
+## Quick Start
 
-Vous pouvez utiliser ce serveur MCP directement avec npx sans installation préalable :
+Use this MCP server directly with npx:
 
 ```bash
 npx -y @kasarlabs/cairo-coder-api
@@ -12,13 +12,13 @@ npx -y @kasarlabs/cairo-coder-api
 
 ## Configuration
 
-### Variables d'environnement
+### Environment Variables
 
-- `CAIRO_CODER_API_KEY` : Votre clé API Cairo Coder (obligatoire)
+- `CAIRO_CODER_API_KEY`: Your Cairo Coder API key (required)
 
-### Configuration Claude Desktop
+### Claude Desktop Setup
 
-Ajoutez la configuration suivante à votre fichier `claude_desktop_config.json` :
+Add this configuration to your `claude_desktop_config.json`:
 
 ```json
 {
@@ -34,56 +34,54 @@ Ajoutez la configuration suivante à votre fichier `claude_desktop_config.json` 
 }
 ```
 
-## Outils disponibles
+## Available Tools
 
 ### assist_with_cairo
 
-Obtenez de l'aide pour vos tâches de développement Cairo et Starknet.
+Get help with Cairo and Starknet development tasks.
 
-**Paramètres :**
+**Parameters:**
 
-- `query` (string, requis) : Votre question ou demande de développement Cairo/Starknet
-- `context` (string, optionnel) : Contexte supplémentaire ou extraits de code
+- `query` (string, required): Your Cairo/Starknet development question
+- `context` (string, optional): Additional context or code snippets
 
-**Exemples d'utilisation :**
+**Examples:**
 
 ```typescript
-// Demande simple
+// Simple request
 {
   "query": "Write a simple Cairo contract that implements a counter"
 }
 
-// Avec contexte
+// With context
 {
   "query": "How can I optimize this contract?",
   "context": "#[starknet::contract]\nmod Counter {\n    // existing code here\n}"
 }
 ```
 
-## Capacités
+## What You Can Do
 
-Ce serveur MCP vous permet de :
+- **Write Cairo code**: Generate smart contracts and Cairo code
+- **Refactor code**: Improve and optimize existing code
+- **Implement features**: Complete TODOs and implement specific functionality
+- **Learn Starknet**: Get contextual information about the Starknet ecosystem
+- **Best practices**: Receive advice based on Cairo/Starknet documentation
 
-- **Écrire du code Cairo** : Générer des contrats intelligents et du code Cairo
-- **Refactoriser** : Améliorer et optimiser le code existant
-- **Implémenter des fonctionnalités** : Compléter des TODOs et implémenter des parties spécifiques
-- **Comprendre l'écosystème Starknet** : Obtenir des informations contextuelles sur Starknet
-- **Meilleures pratiques** : Recevoir des conseils basés sur la documentation Cairo/Starknet
+## Tips for Better Results
 
-## Bonnes pratiques
+- Use specific queries (e.g., "Using OpenZeppelin to build an ERC20" instead of just "ERC20")
+- Include relevant code snippets when working with existing code
+- Provide necessary context for more accurate responses
 
-- **Requêtes spécifiques** : Utilisez des requêtes ciblées pour de meilleurs résultats (ex: "Using Openzeppelin to build an ERC20" plutôt que juste "ERC20")
-- **Intégrez le code** : Incluez des extraits de code pertinents si la tâche est liée à du code existant
-- **Contexte** : Fournissez le contexte nécessaire pour des réponses plus précises
+## Development
 
-## Développement
-
-### Prérequis
+### Prerequisites
 
 - Node.js >= 18
-- npm ou yarn
+- npm or yarn
 
-### Installation locale
+### Local Installation
 
 ```bash
 git clone <repository-url>
@@ -91,47 +89,25 @@ cd cairo-coder-api
 npm install
 ```
 
-### Scripts disponibles
+### Available Scripts
 
 ```bash
-# Build du projet
-npm run build
-
-# Démarrage en mode développement
-npm run dev
-
-# Démarrage en production
-npm start
+npm run build    # Build the project
+npm run dev      # Start in development mode
+npm start        # Start in production mode
 ```
 
-### Structure du projet
-
-```
-src/
-├── index.ts          # Serveur MCP principal
-package.json          # Configuration du package
-tsconfig.json         # Configuration TypeScript
-README.md            # Documentation
-```
-
-## API Cairo Coder
-
-Ce serveur utilise l'API Cairo Coder disponible à l'adresse :
-`https://api.cairo-coder.com/v1/chat/completions`
-
-Assurez-vous d'avoir une clé API valide pour utiliser ce service.
-
-## Licence
+## License
 
 MIT
 
 ## Support
 
-Pour les problèmes et questions :
+For issues and questions:
 
-- Issues GitHub : [Créer une issue](https://github.com/kasarlabs/cairo-coder-api/issues)
-- Documentation MCP : [Model Context Protocol](https://modelcontextprotocol.io/)
+- GitHub Issues: [Create an issue](https://github.com/kasarlabs/cairo-coder-api/issues)
+- MCP Documentation: [Model Context Protocol](https://modelcontextprotocol.io/)
 
-## Contribution
+## Contributing
 
-Les contributions sont les bienvenues ! Veuillez consulter les guidelines de contribution avant de soumettre une PR.
+Contributions are welcome! Please check the contribution guidelines before submitting a PR.
