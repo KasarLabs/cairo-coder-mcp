@@ -11,6 +11,10 @@
 
 A Model Context Protocol (MCP) server for Cairo and Starknet development assistance via the Cairo Coder API.
 
+<a href="https://glama.ai/mcp/servers/@KasarLabs/cairo-coder-mcp">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@KasarLabs/cairo-coder-mcp/badge" alt="Cairo Coder MCP server" />
+</a>
+
 ## Quick Start
 
 Use this MCP server directly with npx:
