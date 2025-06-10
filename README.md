@@ -1,5 +1,3 @@
-# Cairo Coder MCP Server
-
 <div align="center">
   <img src="./cairo-grey.png" alt="Cairo Coder MCP Logo" width="300"/>
   
@@ -8,6 +6,8 @@
   [![GitHub stars](https://img.shields.io/github/stars/kasarlabs/cairo-coder-mcp.svg)](https://github.com/kasarlabs/cairo-coder-mcp/stargazers)
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 </div>
+
+# Cairo Coder MCP Server
 
 A Model Context Protocol (MCP) server for Cairo and Starknet development assistance via the Cairo Coder API.
 
