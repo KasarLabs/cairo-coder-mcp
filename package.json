@@ -1,6 +1,6 @@
 {
   "name": "@kasarlabs/cairo-coder-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MCP server to interact with the Cairo Coder API",
   "type": "module",
   "main": "dist/index.js",
@@ -11,7 +11,7 @@
     }
   },
   "bin": {
-    "cairo-coder-mcp": "./dist/index.js"
+    "cairo-coder-api": "./dist/index.js"
   },
   "files": [
     "dist",
