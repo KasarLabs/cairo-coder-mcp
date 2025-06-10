@@ -243,8 +243,8 @@ class CairoCoderMCPServer {
    */
   async run(): Promise<void> {
     const transport = new StdioServerTransport();
-    await this.server.connect(transport);
     console.error("Cairo Coder MCP server running on stdio");
+    await this.server.connect(transport);
   }
 }
 
@@ -257,11 +257,9 @@ async function main() {
   await server.run();
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
-  main().catch((error) => {
-    console.error("Fatal error in main():", error);
-    process.exit(1);
-  });
-}
+main().catch((error) => {
+  console.error("Fatal error in main():", error);
+  process.exit(1);
+});
 
 export default CairoCoderMCPServer;
