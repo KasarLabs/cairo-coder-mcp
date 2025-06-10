@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import "dotenv/config";
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
@@ -8,6 +10,7 @@ import {
 } from "@modelcontextprotocol/sdk/types.js";
 import fetch from "node-fetch";
 
+// ... reste du code inchangé
 /**
  * Represents a message in the Cairo Coder conversation
  */
