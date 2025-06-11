@@ -54,7 +54,7 @@ class CairoCoderMCPServer {
    */
   constructor() {
     this.server = new Server({
-      name: "cairo-coder-api",
+      name: "cairo-coder-mcp",
       version: "1.0.0",
       capabilities: {
         tools: {},

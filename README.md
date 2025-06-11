@@ -1,8 +1,8 @@
 <div align="center">
   <img src="./cairo-grey.png" alt="Cairo Coder MCP Logo" width="300"/>
   
-  [![npm version](https://img.shields.io/npm/v/@kasarlabs/cairo-coder-api.svg)](https://www.npmjs.com/package/@kasarlabs/cairo-coder-api)
-  [![npm downloads](https://img.shields.io/npm/dm/@kasarlabs/cairo-coder-api.svg)](https://www.npmjs.com/package/@kasarlabs/cairo-coder-api)
+  [![npm version](https://img.shields.io/npm/v/@kasarlabs/cairo-coder-mcp.svg)](https://www.npmjs.com/package/@kasarlabs/cairo-coder-mcp)
+  [![npm downloads](https://img.shields.io/npm/dm/@kasarlabs/cairo-coder-mcp.svg)](https://www.npmjs.com/package/@kasarlabs/cairo-coder-mcp)
   [![GitHub stars](https://img.shields.io/github/stars/kasarlabs/cairo-coder-mcp.svg)](https://github.com/kasarlabs/cairo-coder-mcp/stargazers)
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 </div>
@@ -16,7 +16,7 @@ A Model Context Protocol (MCP) server for Cairo and Starknet development assista
 Use this MCP server directly with npx:
 
 ```bash
-npx -y @kasarlabs/cairo-coder-api
+npx -y @kasarlabs/cairo-coder-mcp
 ```
 
 ## Configuration
@@ -34,7 +34,7 @@ Add this configuration to your `claude_desktop_config.json`:
   "mcpServers": {
     "cairo-coder": {
       "command": "npx",
-      "args": ["-y", "@kasarlabs/cairo-coder-api"],
+      "args": ["-y", "@kasarlabs/cairo-coder-mcp"],
       "env": {
         "CAIRO_CODER_API_KEY": "your-api-key-here"
       }
@@ -94,7 +94,7 @@ Get help with Cairo and Starknet development tasks.
 
 ```bash
 git clone <repository-url>
-cd cairo-coder-api
+cd cairo-coder-mcp
 npm install
 ```
 
@@ -114,7 +114,7 @@ MIT
 
 For issues and questions:
 
-- GitHub Issues: [Create an issue](https://github.com/kasarlabs/cairo-coder-api/issues)
+- GitHub Issues: [Create an issue](https://github.com/kasarlabs/cairo-coder-mcp/issues)
 - MCP Documentation: [Model Context Protocol](https://modelcontextprotocol.io/)
 
 ## Contributing

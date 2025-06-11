@@ -11,7 +11,7 @@
     }
   },
   "bin": {
-    "cairo-coder-api": "./dist/index.js"
+    "cairo-coder-mcp": "./dist/index.js"
   },
   "files": [
     "dist",
