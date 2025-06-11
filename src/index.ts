@@ -179,6 +179,7 @@ class CairoCoderMCPServer {
         headers: {
           "Content-Type": "application/json",
           "x-api-key": this.apiKey,
+          mcp: "true",
         },
         body: JSON.stringify(requestBody),
       });
