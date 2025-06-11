@@ -21,13 +21,17 @@ npx -y @kasarlabs/cairo-coder-mcp
 
 ## Configuration
 
-### Environment Variables
+The server supports two modes of operation:
+
+### Mode 1: Public Cairo Coder API (Default)
+
+Use the official Cairo Coder API with your API key.
+
+**Environment Variables:**
 
 - `CAIRO_CODER_API_KEY`: Your Cairo Coder API key (required)
 
-### Claude Desktop Setup
-
-Add this configuration to your `claude_desktop_config.json`:
+**MCP Client Setup:**
 
 ```json
 {
@@ -42,6 +46,32 @@ Add this configuration to your `claude_desktop_config.json`:
   }
 }
 ```
+
+### Mode 2: Local/Custom Endpoint
+
+Use a local or custom Cairo Coder API endpoint (no API key required).
+
+**Environment Variables:**
+
+- `CAIRO_CODER_API_ENDPOINT`: Your local endpoint URL (e.g., "http://localhost:8000")
+
+**MCP Client Setup:**
+
+```json
+{
+  "mcpServers": {
+    "cairo-coder": {
+      "command": "npx",
+      "args": ["-y", "@kasarlabs/cairo-coder-mcp"],
+      "env": {
+        "CAIRO_CODER_API_ENDPOINT": "http://localhost:8000"
+      }
+    }
+  }
+}
+```
+
+> **Note:** When using `CAIRO_CODER_API_ENDPOINT`, the server automatically switches to local mode and no API key is required or used.
 
 ## Available Tools
 
