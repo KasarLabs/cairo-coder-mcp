@@ -45,11 +45,12 @@ interface CairoCoderResponse {
 class CairoCoderMCPServer {
   private server: Server;
   private apiKey: string;
-  private apiUrl = "https://api.cairo-coder.com/v1/chat/completions";
+  private apiUrl: string;
+  private isLocalMode: boolean;
 
   /**
    * Initializes the Cairo Coder MCP Server
-   * @throws {Error} If CAIRO_CODER_API_KEY environment variable is not set
+   * @throws {Error} If CAIRO_CODER_API_KEY environment variable is not set when using public API
    */
   constructor() {
     this.server = new Server({
@@ -60,12 +61,30 @@ class CairoCoderMCPServer {
       },
     });
 
-    this.apiKey = process.env.CAIRO_CODER_API_KEY || "";
-    if (!this.apiKey) {
+    // Check if local endpoint is specified
+    const localEndpoint = process.env.CAIRO_CODER_API_ENDPOINT;
+
+    if (localEndpoint) {
+      // Local mode: use custom endpoint, no API key required
+      this.isLocalMode = true;
+      this.apiUrl = `${localEndpoint}/v1/chat/completions`;
+      this.apiKey = "";
       console.error(
-        "Error: CAIRO_CODER_API_KEY environment variable is required",
+        `Cairo Coder MCP server configured for local mode: ${this.apiUrl}`,
       );
-      process.exit(1);
+    } else {
+      // Public API mode: use official endpoint, API key required
+      this.isLocalMode = false;
+      this.apiUrl = "https://api.cairo-coder.com/v1/chat/completions";
+      this.apiKey = process.env.CAIRO_CODER_API_KEY || "";
+
+      if (!this.apiKey) {
+        console.error(
+          "Error: CAIRO_CODER_API_KEY environment variable is required when using public API",
+        );
+        process.exit(1);
+      }
+      console.error("Cairo Coder MCP server configured for public API mode");
     }
 
     this.setupToolHandlers();
@@ -174,13 +193,20 @@ class CairoCoderMCPServer {
         ],
       };
 
+      // Prepare headers based on mode
+      const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+        mcp: "true",
+      };
+
+      // Only add API key header in public API mode
+      if (!this.isLocalMode && this.apiKey) {
+        headers["x-api-key"] = this.apiKey;
+      }
+
       const response = await fetch(this.apiUrl, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": this.apiKey,
-          mcp: "true",
-        },
+        headers,
         body: JSON.stringify(requestBody),
       });
 
