@@ -5,6 +5,7 @@
   [![npm downloads](https://img.shields.io/npm/dm/@kasarlabs/cairo-coder-mcp.svg)](https://www.npmjs.com/package/@kasarlabs/cairo-coder-mcp)
   [![GitHub stars](https://img.shields.io/github/stars/kasarlabs/cairo-coder-mcp.svg)](https://github.com/kasarlabs/cairo-coder-mcp/stargazers)
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+  [![smithery badge](https://smithery.ai/badge/@KasarLabs/cairo-coder-api)](https://smithery.ai/server/@KasarLabs/cairo-coder-api)
 </div>
 
 # Cairo Coder MCP Server
@@ -13,6 +14,15 @@ A Model Context Protocol (MCP) server for Cairo and Starknet development assista
 
 ## Quick Start
 
+### Installing via Smithery
+
+To install cairo-coder-api for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@KasarLabs/cairo-coder-api):
+
+```bash
+npx -y @smithery/cli install @KasarLabs/cairo-coder-api --client claude
+```
+
+### Installing Manually
 Use this MCP server directly with npx:
 
 ```bash
