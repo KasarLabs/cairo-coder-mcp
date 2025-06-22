@@ -10,7 +10,6 @@ import {
 } from "@modelcontextprotocol/sdk/types.js";
 import fetch from "node-fetch";
 
-// ... reste du code inchangé
 /**
  * Represents a message in the Cairo Coder conversation
  */
@@ -45,7 +44,6 @@ interface CairoCoderResponse {
 class CairoCoderMCPServer {
   private server: Server;
   private apiKey: string;
-  private apiUrl: string;
   private isLocalMode: boolean;
 
   /**
@@ -67,15 +65,13 @@ class CairoCoderMCPServer {
     if (localEndpoint) {
       // Local mode: use custom endpoint, no API key required
       this.isLocalMode = true;
-      this.apiUrl = `${localEndpoint}/v1/chat/completions`;
       this.apiKey = "";
       console.error(
-        `Cairo Coder MCP server configured for local mode: ${this.apiUrl}`,
+        `Cairo Coder MCP server configured for local mode: ${localEndpoint}`,
       );
     } else {
       // Public API mode: use official endpoint, API key required
       this.isLocalMode = false;
-      this.apiUrl = "https://api.cairo-coder.com/v1/chat/completions";
       this.apiKey = process.env.CAIRO_CODER_API_KEY || "";
 
       if (!this.apiKey) {
@@ -93,7 +89,7 @@ class CairoCoderMCPServer {
 
   /**
    * Sets up the tool handlers for the MCP server
-   * Configures the assist_with_cairo tool for Cairo/Starknet development assistance
+   * Configures tools for different Cairo Coder agents
    */
   private setupToolHandlers(): void {
     this.server.setRequestHandler(ListToolsRequestSchema, async () => {
@@ -102,11 +98,11 @@ class CairoCoderMCPServer {
           {
             name: "assist_with_cairo",
             description: `Provides assistance with Cairo and Starknet development tasks through AI-powered analysis.
-  
+
   Call this tool when the user's request involves **writing, refactoring, implementing from scratch, or completing specific parts (like TODOs)** of Cairo code or smart contracts.
-  
+
   The tool analyzes the query and context against Cairo/Starknet best practices and documentation, returning helpful information to generate accurate code or explanations.
-  
+
   This tool should also be called to get a better understanding of Starknet's ecosystem, features, and capacities.`,
             inputSchema: {
               type: "object",
@@ -136,6 +132,47 @@ class CairoCoderMCPServer {
               required: ["query"],
             },
           } as Tool,
+          {
+            name: "assist_with_scarb",
+            description: `Provides specialized assistance with Scarb build tool for Cairo projects.
+
+  Call this tool when the user's request involves Scarb-specific tasks such as:
+  - Project configuration and setup
+  - Dependency management
+  - Build configuration
+  - Workspace management
+  - Package publishing
+  - Scarb.toml configuration
+
+  This tool is optimized for Scarb-related queries and has comprehensive understanding of Scarb.`,
+            inputSchema: {
+              type: "object",
+              properties: {
+                query: {
+                  type: "string",
+                  description:
+                    "The user's question regarding Scarb build tool. Be specific about what you want to achieve with Scarb (e.g., 'How to add a git dependency in Scarb.toml' rather than just 'dependencies').",
+                },
+                codeSnippets: {
+                  type: "array",
+                  items: {
+                    type: "string",
+                  },
+                  description:
+                    "Optional: Code snippets or configuration files for context. Include Scarb.toml content or project structure if relevant.",
+                },
+                history: {
+                  type: "array",
+                  items: {
+                    type: "string",
+                  },
+                  description:
+                    "Optional: The preceding conversation history. This can help the tool understand the context of the discussion and provide more accurate answers.",
+                },
+              },
+              required: ["query"],
+            },
+          } as Tool,
         ],
       };
     });
@@ -144,13 +181,19 @@ class CairoCoderMCPServer {
       const { name, arguments: args } = request.params;
 
       if (name === "assist_with_cairo") {
-        return await this.handleCairoAssistance(
-          args as {
-            query: string;
-            codeSnippets?: string[];
-            history?: string[];
-          },
-        );
+        return await this.handleAgentAssistance("cairo-coder", args as {
+          query: string;
+          codeSnippets?: string[];
+          history?: string[];
+        });
+      }
+
+      if (name === "assist_with_scarb") {
+        return await this.handleAgentAssistance("scarb-assistant", args as {
+          query: string;
+          codeSnippets?: string[];
+          history?: string[];
+        });
       }
 
       throw new Error(`Unknown tool: ${name}`);
@@ -158,11 +201,12 @@ class CairoCoderMCPServer {
   }
 
   /**
-   * Handles Cairo assistance requests by calling the Cairo Coder API
+   * Handles assistance requests by calling the Cairo Coder API with specific agent
+   * @param agentId - The agent ID to use for the request
    * @param args - The arguments containing query, optional code snippets, and conversation history
    * @returns The response from the Cairo Coder API or an error message
    */
-  private async handleCairoAssistance(args: {
+  private async handleAgentAssistance(agentId: string, args: {
     query: string;
     codeSnippets?: string[];
     history?: string[];
@@ -193,6 +237,15 @@ class CairoCoderMCPServer {
         ],
       };
 
+      // Determine the API URL based on agent and mode
+      let apiUrl: string;
+      if (this.isLocalMode) {
+        const baseUrl = process.env.CAIRO_CODER_API_ENDPOINT;
+        apiUrl = `${baseUrl}/v1/agents/${agentId}/chat/completions`;
+      } else {
+          apiUrl = `https://api.cairo-coder.com/v1/agents/${agentId}/chat/completions`;
+      }
+
       // Prepare headers based on mode
       const headers: Record<string, string> = {
         "Content-Type": "application/json",
@@ -204,7 +257,7 @@ class CairoCoderMCPServer {
         headers["x-api-key"] = this.apiKey;
       }
 
-      const response = await fetch(this.apiUrl, {
+      const response = await fetch(apiUrl, {
         method: "POST",
         headers,
         body: JSON.stringify(requestBody),
