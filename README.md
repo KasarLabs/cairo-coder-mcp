@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/kasarlabs-cairo-coder-mcp-badge.png)](https://mseep.ai/app/kasarlabs-cairo-coder-mcp)
+
 <div align="center">
   <img src="./cairo-grey.png" alt="Cairo Coder MCP Logo" width="300"/>
   
