@@ -13,6 +13,17 @@ A Model Context Protocol (MCP) server for Cairo and Starknet development assista
 
 ## Quick Start
 
+### Install via Claude Code
+
+```bash
+# Install Cairo Coder MCP
+claude mcp add cairo-coder -e CAIRO_CODER_API_KEY=YOUR-API-KEY-HERE -- npx -y @kasarlabs/cairo-coder-mcp
+```
+
+**Note**: Replace `YOUR-API-KEY-HERE` with your actual API key from [cairo-coder.com](https://cairo-coder.com)
+
+### Manual Usage
+
 Use this MCP server directly with npx:
 
 ```bash
