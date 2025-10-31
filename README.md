@@ -12,10 +12,12 @@
 
 A Model Context Protocol (MCP) server for Cairo and Starknet development assistance via the Cairo Coder API.
 
-### ⚠️ Repository Moved / Deprecated
+## ⚠️ Repository Moved / Deprecated
 
 This project now lives in the [**Ask Starknet monorepo**](https://github.com/KasarLabs/ask-starknet/tree/main/packages/mcps/cairo-coder)
+
 The npm package remains published [**here**](https://www.npmjs.com/package/@kasarlabs/cairo-coder-mcp)
+
 This repo will not receive further updates.
 
 ## Quick Start
